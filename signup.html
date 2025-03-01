@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <style>.signup-container {
+        border: 2px solid black;
+        padding: 30px;
+        width: 320px;
+        text-align: left;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .signup-container label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+    
+    .signup-container input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    #signup-btn {
+        width: 100%;
+        background-color: #7753da;
+        color: white;
+        border: none;
+        padding: 10px;
+        margin-top: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    #signup-btn:hover {
+        background-color: #5b3cb8;
+    }
+    
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+    
+    .login-link a {
+        color: #7753da;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+<body>
+
+    <center><div class="signup-container">
+        <h2>S'inscrire</h2>
+        <form action="dashboard.html" method="POST">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" placeholder="Entrez votre nom" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" placeholder="Créez un mot de passe" required>
+
+            <label for="confirm-password">Confirmez le mot de passe :</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
+
+            <button type="submit" id="signup-btn">S'inscrire</button>
+        </form>
+        <p class="login-link">Déjà un compte ? <a href="login.html">Se connecter</a></p>
+    </div></center>
+
+</body>
+<script> 
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Empêcher le rechargement de la page
+
+        // Récupération des valeurs des champs
+        let username = document.getElementById("username").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirm-password").value;
+
+        // Vérification des champs
+        if (username === "" || email === "" || password === "" || confirmPassword === "") {
+            alert("Veuillez remplir tous les champs !");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Les mots de passe ne correspondent pas !");
+            return;
+        }
+
+        // Création d'un objet utilisateur
+        let newUser = {
+            id: Date.now(), // Générer un ID unique basé sur le timestamp
+            username: username,
+            email: email,
+            password: password // ⚠️ À ne pas stocker en clair en production !
+        };
+
+        // Vérifier si des utilisateurs existent déjà dans le localStorage
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Vérifier si l'email est déjà utilisé
+        let existingUser = users.find(user => user.email === email);
+        if (existingUser) {
+            alert("Cet email est déjà utilisé !");
+            return;
+        }
+
+        // Ajouter le nouvel utilisateur
+        users.push(newUser);
+
+        // Sauvegarde dans le localStorage (simulant un fichier JSON)
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+
+        // Rediriger vers la page de connexion
+        window.location.href = "login.html";
+    });
+});
+
+</script>
+</html>
