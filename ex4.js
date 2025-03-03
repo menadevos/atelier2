@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     recentBlogsContainer.id = "recent-blogs";
     mainContent.appendChild(recentBlogsContainer); 
 
-    // Create & Style Logout button
+    
     logoutButton.textContent = "Logout";
     logoutButton.id = "logoutButton";
     logoutButton.style.marginLeft = "10px";
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         recentBlogsContainer.innerHTML = "<h2>Recent Posts</h2>"; 
 
         let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-        
+        posts = posts.slice(0, 5);
         posts.forEach(post => {
             if (filterByUser && loggedInUser && post.username !== loggedInUser.username) {
                 return;

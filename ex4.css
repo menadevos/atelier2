@@ -83,3 +83,47 @@ input, textarea {
     border-radius: 10px;
 
 }
+/* Styling for Recent Blogs Section */
+#recent-blogs {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#recent-blogs h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+
+#recent-blogs article {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#recent-blogs article h3 {
+    font-size: 1.5em;
+    color: #7753da;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 10px;
+}
+
+#recent-blogs article p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+}
+
+#recent-blogs article small {
+    font-size: 0.9em;
+    color: #888;
+    display: block;
+    margin-top: 10px;
+}
