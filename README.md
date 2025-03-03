@@ -23,6 +23,8 @@ Ce projet est un **ATELIER** combinant plusieurs fonctionnalités : la gestion d
 - **Classe Point** : Représentation d’un point dans un espace 2D avec des coordonnées `x` et `y`.
 - **Classe Segment** : Représentation d’un segment de ligne avec une origine et une extrémité, définis par des instances de la classe `Point`.
 - **Classe Vecteur2D** : Représentation d’un vecteur en 2D avec des méthodes pour afficher et additionner des vecteurs.
+- **Classe Rectangle** :Représentation d’un rectangle dans un espace 2D avec des propriétés de largeur `width` et de hauteur `height`. La classe permet de créer un rectangle, d’afficher ses dimensions et de calculer sa surface.
+- **Classe Carre** :Représentation d’un carré, qui est une sous-classe de la classe Rectangle. Un carré est un rectangle dont les côtés sont égaux. La classe permet de créer un carré en spécifiant un seul paramètre : la longueur du côté.
 
 ---
 
