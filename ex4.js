@@ -7,11 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     var blogSection = document.getElementById("blogs-section");
     var postForm = document.querySelector(".cadre");
     var postButton = document.getElementById("postbu");
-    var recentBlogsContainer = document.createElement("div"); 
+    var recentBlogsContainer = document.createElement("div");
+    var myBlogsContainer = document.createElement("div");
 
     recentBlogsContainer.id = "recent-blogs";
-    mainContent.appendChild(recentBlogsContainer); 
-
+    myBlogsContainer.id = "my-blogs";
+    
+    mainContent.appendChild(recentBlogsContainer);
+    blogSection.appendChild(myBlogsContainer);
     
     logoutButton.textContent = "Logout";
     logoutButton.id = "logoutButton";
@@ -22,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     logoutButton.style.border = "none";
     logoutButton.style.cursor = "pointer";
 
-    var nav = document.querySelector("nav"); 
+    var nav = document.querySelector("nav");
     if (nav) {
         nav.appendChild(logoutButton);
     }
@@ -33,22 +36,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadRecentBlogs(filterByUser = false) {
         let posts = JSON.parse(localStorage.getItem("posts")) || [];
-        recentBlogsContainer.innerHTML = "<h2>Recent Posts</h2>"; 
-
+        recentBlogsContainer.innerHTML = "<h2>Recent Posts</h2>";
+        myBlogsContainer.innerHTML = "<h2>My Blogs</h2>";
+        
         let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-        posts = posts.slice(0, 5);
+        
         posts.forEach(post => {
-            if (filterByUser && loggedInUser && post.username !== loggedInUser.username) {
-                return;
-            }
-
             let article = document.createElement("article");
             article.innerHTML = `
                 <h3>${post.title}</h3>
                 <p>${post.description}</p>
                 <small>Posted by: ${post.username} on ${post.timestamp}</small>
             `;
-            recentBlogsContainer.appendChild(article);
+            
+            if (filterByUser && loggedInUser && post.username === loggedInUser.username) {
+                myBlogsContainer.appendChild(article);
+            } else if (!filterByUser) {
+                recentBlogsContainer.appendChild(article);
+            }
         });
     }
 
@@ -58,14 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!isUserLoggedIn()) {
                 alert("You must be logged in to see your blogs!");
-                window.location.href = "login.html";
+               
                 return;
             }
 
             mainContent.style.display = "none";
             blogSection.style.display = "block";
             postForm.style.display = "none";
-            loadRecentBlogs(true); 
+            loadRecentBlogs(true);
         });
     }
 
@@ -79,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         postButton.addEventListener("click", function () {
             if (!isUserLoggedIn()) {
                 alert("You must be logged in to post!");
-                window.location.href = "login.html";
+                window.location.href = "ex4.html";
                 return;
             }
 
@@ -106,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             alert("Post successfully added!");
 
+
             document.getElementById("title").value = "";
             document.getElementById("textar").value = "";
 
@@ -117,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
     logoutButton.addEventListener("click", function () {
         localStorage.removeItem("loggedInUser");
         alert("You have been logged out.");
-        window.location.href = "login.html";
+        window.location.href = "ex4.html";
     });
 
-    loadRecentBlogs(); 
+    loadRecentBlogs();
 });
