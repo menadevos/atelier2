@@ -91,15 +91,13 @@
 <script> 
     document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("form").addEventListener("submit", function (event) {
-        event.preventDefault(); // Empêcher le rechargement de la page
+        event.preventDefault();
 
-        // Récupération des valeurs des champs
         let username = document.getElementById("username").value.trim();
         let email = document.getElementById("email").value.trim();
         let password = document.getElementById("password").value;
         let confirmPassword = document.getElementById("confirm-password").value;
 
-        // Vérification des champs
         if (username === "" || email === "" || password === "" || confirmPassword === "") {
             alert("Veuillez remplir tous les champs !");
             return;
@@ -110,36 +108,29 @@
             return;
         }
 
-        // Création d'un objet utilisateur
         let newUser = {
-            id: Date.now(), // Générer un ID unique basé sur le timestamp
+            id: Date.now(),
             username: username,
             email: email,
-            password: password // ⚠️ À ne pas stocker en clair en production !
+            password: password
         };
 
-        // Vérifier si des utilisateurs existent déjà dans le localStorage
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Vérifier si l'email est déjà utilisé
         let existingUser = users.find(user => user.email === email);
         if (existingUser) {
             alert("Cet email est déjà utilisé !");
             return;
         }
 
-        // Ajouter le nouvel utilisateur
         users.push(newUser);
 
-        // Sauvegarde dans le localStorage (simulant un fichier JSON)
         localStorage.setItem("users", JSON.stringify(users));
 
         alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
 
-        // Rediriger vers la page de connexion
         window.location.href = "login.html";
     });
 });
-
 </script>
 </html>

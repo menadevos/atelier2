@@ -93,32 +93,24 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("form").addEventListener("submit", function (event) {
-        event.preventDefault(); // Empêcher le rechargement de la page
+        event.preventDefault();
 
-        // Récupération des valeurs des champs
         let email = document.getElementById("email").value.trim();
         let password = document.getElementById("password").value;
 
-        // Vérification si les utilisateurs existent dans le localStorage
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Recherche de l'utilisateur correspondant
         let foundUser = users.find(user => user.email === email && user.password === password);
 
         if (foundUser) {
             alert("Connexion réussie !");
-            
-            // Sauvegarder l'utilisateur connecté dans localStorage
             localStorage.setItem("loggedInUser", JSON.stringify(foundUser));
-
-            // Redirection vers la page du tableau de bord
             window.location.href = "ex4.html";
         } else {
             alert("Email ou mot de passe incorrect !");
         }
     });
 });
-
 </script>
 </body>
 </html>
